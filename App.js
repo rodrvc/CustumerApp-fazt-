@@ -18,6 +18,7 @@ class UI {
                 <strong>Product price:</strong> ${product.price}
                 <strong>Product year:</strong> ${product.year}
                 <a href="#" class="btn btn-danger" name="delete">BORRAR</a>
+
             </div>
         </div>     
         `;
@@ -45,7 +46,12 @@ class UI {
 
     showMessage(message, cssClass){
         const div = document.createElement('div');
-        div.className = `alert alert-${cssClass} mt-4`;
+        
+        div.className = `alert alert-${cssClass} alert-dismissible fade show mt-4`;
+        div.innerHTML = `
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>`
         div.appendChild(document.createTextNode(message));
         // SHOW IN DOM
         const container = document.querySelector('.container');
@@ -91,15 +97,7 @@ document.getElementById('product-list').addEventListener('click' , function(e){
 })
 
 const div2 = document.createElement('div');
+div2.innerHTML = `<h1>hola amigos</h1>`
 const div3 = document.getElementById('product-list');
 
-div2.innerHTML = `<h1>hola amigos</h1>`
-
-
 div3.appendChild(div2);
-
-
-
-
-
-
