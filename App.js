@@ -17,24 +17,44 @@ class UI {
                 <strong>Product name:</strong> ${product.name}
                 <strong>Product price:</strong> ${product.price}
                 <strong>Product year:</strong> ${product.year}
-                <a class = ""></a>
+                <a href="#" class="btn btn-danger" name="delete">BORRAR</a>
             </div>
         </div>     
-        `
-        productList.appendChild(element);
-        deleteProducto();
-    }
-
-    deteleProduct(){
-        const reset = document.getElementById('product-form').reset();
-    }
-
-    erarseForm(){
+        `;
+        productList.appendChild(element); 
+        this.erarseForm();
+        this.showMessage('producto Agregado' , 'success');
         
     }
 
-    showMessage(){
+    deteleProduct(element){
+       if (element.name === 'delete') {
+           console.log(element.parentElement.parentElement.parentElement)
+           element.parentElement.parentElement.remove();
+           console.log(element.parentElement.parentElement.parentElement);
+           ;
+           this.showMessage('producto eliminado' , 'danger');
+        
+       }
+    }
 
+    erarseForm(){
+        document.getElementById('product-form').reset(); 
+        
+    }
+
+    showMessage(message, cssClass){
+        const div = document.createElement('div');
+        div.className = `alert alert-${cssClass} mt-4`;
+        div.appendChild(document.createTextNode(message));
+        // SHOW IN DOM
+        const container = document.querySelector('.container');
+        
+        const app = document.querySelector('#App');
+        container.insertBefore(div , app );
+        setTimeout(() => {
+            document.querySelector('.alert').remove();
+        }, 3000);
     }
 }
 
@@ -48,13 +68,38 @@ document.getElementById('product-form')
 
 
     const nuevoProducto = new Product(productName, priceName , year);
-    
     const ui = new UI();
-    e.preventDefault();
+
+    if (productName === "" || priceName === "" || year === "") {
+       return ui.showMessage('faltan campos', 'danger');
+    }
+    
+    
+    
     ui.addProduct(nuevoProducto);
+    
+    e.preventDefault();
    
 })
 
 console.log("hello");
+
+// Dom element
+document.getElementById('product-list').addEventListener('click' , function(e){
+    const ui = new UI();
+    ui.deteleProduct(e.target);
+})
+
+const div2 = document.createElement('div');
+const div3 = document.getElementById('product-list');
+
+div2.innerHTML = `<h1>hola amigos</h1>`
+
+
+div3.appendChild(div2);
+
+
+
+
 
 
